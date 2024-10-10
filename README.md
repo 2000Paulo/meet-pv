@@ -33,4 +33,4 @@
 
 
 ### Vídeo com a execução do projeto:
-Assistir no YouTube
+[Assistir no YouTube](https://youtu.be/SlLtvAoom2s)
