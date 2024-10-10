@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Bem-vindo!</h2>
+
+        <!-- Botões para mostrar o formulário de login ou registro -->
+        <button id="showLoginForm">Login</button>
+        <button id="showRegisterForm">Registrar</button>
+
+        <!-- Formulário de Login -->
+        <div id="loginFormContainer" style="display: none;">
+            <h3>Login</h3>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+
+        <!-- Formulário de Registro -->
+        <div id="registerFormContainer" style="display: none;">
+            <h3>Registrar</h3>
+            <form id="registerForm">
+                <input type="text" id="registerName" placeholder="Nome" required>
+                <input type="email" id="registerEmail" placeholder="Email" required>
+                <input type="password" id="registerPassword" placeholder="Senha" required>
+                <button type="submit">Registrar</button>
+            </form>
+        </div>
+
+        <!-- Lista de Salas -->
+        <ul id="roomsList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Mostrar o formulário de login ou registro
+        document.getElementById('showLoginForm').addEventListener('click', () => {
+            document.getElementById('loginFormContainer').style.display = 'block';
+            document.getElementById('registerFormContainer').style.display = 'none';
+            document.getElementById('showLoginForm').style.display = 'none'; // Ocultar botão de login
+            document.getElementById('showRegisterForm').style.display = 'none'; // Ocultar botão de registrar
+        });
+
+        document.getElementById('showRegisterForm').addEventListener('click', () => {
+            document.getElementById('registerFormContainer').style.display = 'block';
+            document.getElementById('loginFormContainer').style.display = 'none';
+            document.getElementById('showLoginForm').style.display = 'none'; // Ocultar botão de login
+            document.getElementById('showRegisterForm').style.display = 'none'; // Ocultar botão de registrar
+        });
+
+        // Lidar com login
+        document.getElementById('loginForm')?.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('authToken', data.token);
+                    window.location.href = 'index.html'; // Redirecionar para a página principal
+                } else {
+                    const errorData = await response.json();
+                    alert('Falha ao fazer login: ' + (errorData.error || 'Erro desconhecido.'));
+                    // Mostrar os botões novamente se houver erro
+                    document.getElementById('showLoginForm').style.display = 'inline';
+                    document.getElementById('showRegisterForm').style.display = 'inline';
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao tentar se conectar ao servidor.');
+                // Mostrar os botões novamente se houver erro
+                document.getElementById('showLoginForm').style.display = 'inline';
+                document.getElementById('showRegisterForm').style.display = 'inline';
+            }
+        });
+
+        // Lidar com registro
+        document.getElementById('registerForm')?.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                if (response.ok) {
+                    alert('Registro bem-sucedido! Faça login.');
+                    document.getElementById('registerForm').reset();
+                    window.location.href = 'login.html'; // Redirecionar para a página de login
+                } else {
+                    const errorData = await response.json();
+                    alert('Falha ao registrar: ' + (errorData.error || 'Erro desconhecido.'));
+                    // Mostrar os botões novamente se houver erro
+                    document.getElementById('showLoginForm').style.display = 'inline';
+                    document.getElementById('showRegisterForm').style.display = 'inline';
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao tentar se conectar ao servidor.');
+                // Mostrar os botões novamente se houver erro
+                document.getElementById('showLoginForm').style.display = 'inline';
+                document.getElementById('showRegisterForm').style.display = 'inline';
+            }
+        });
+    </script>
+</body>
+</html>

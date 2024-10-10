@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="style.css"> <!-- Link para o arquivo CSS -->
+    <title>Meet PV - Reuniões</title>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Meet PV</h1>
+        <nav>
+            <a href="#create-room">Criar Sala</a>
+            <a href="#join-room">Entrar na Sala</a>
+            <a href="#list-rooms">Listar Salas</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="create-room">
+            <h2>Criar Sala</h2>
+            <form id="createRoomForm">
+                <input type="text" id="roomName" placeholder="Nome da Sala" required>
+                <input type="number" id="roomCapacity" placeholder="Capacidade" required>
+                <button type="submit">Criar Sala</button>
+            </form>
+        </section>
+
+        <section id="join-room">
+            <h2>Entrar na Sala</h2>
+            <input type="text" id="roomId" placeholder="ID da Sala" required>
+            <button id="joinRoomButton">Entrar</button>
+        </section>
+
+        <section id="list-rooms">
+            <h2>Salas Disponíveis</h2>
+            <ul id="roomsList">
+                <!-- Exemplo de uma sala na lista -->
+                <li>
+                    <span>Nome da Sala</span>
+                    <button onclick="joinRoom('idDaSala')">Entrar</button> <!-- Chamando joinRoom aqui -->
+                </li>
+                <!-- Adicione dinamicamente as salas aqui -->
+            </ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script> <!-- Link para o arquivo JavaScript -->
+</body>
+</html>

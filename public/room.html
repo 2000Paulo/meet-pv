@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- Link para o arquivo CSS -->
+    <title>Detalhes da Sala</title>
+</head>
+<body>
+    <header>
+        <h1>Detalhes da Sala</h1>
+    </header>
+
+    <main>
+        <!-- Detalhes da sala -->
+        <section id="roomDetails">
+            <h2 id="roomName"></h2>
+            <p><strong>Capacidade:</strong> <span id="roomCapacity"></span></p>
+        </section>
+
+        <!-- Seção do chat -->
+        <section id="chatSection">
+            <h3>Chat da Sala</h3>
+            <div id="chatBox"></div> <!-- Caixa de chat para mensagens -->
+            <form id="chatForm">
+                <input type="text" id="chatInput" placeholder="Digite sua mensagem..." required>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+
+        <!-- Seção de chamada de vídeo/áudio -->
+        <section id="callSection">
+            <h3>Chamada de Vídeo</h3>
+            <div>
+                <video id="localVideo" autoplay playsinline></video>
+                <video id="remoteVideo" autoplay playsinline></video>
+            </div>
+            <button id="startCall">Iniciar Chamada</button>
+            <button id="endCall">Encerrar Chamada</button>
+        </section>
+    </main>
+
+    <!-- Importação do Socket.io -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <!-- <script src="../src/socketServer.js"></script> -->
+    <script src="room.js"></script> <!-- Link para o arquivo JavaScript -->
+</body>
+</html>
